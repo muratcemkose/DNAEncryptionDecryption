@@ -76,7 +76,7 @@ class GoldmanObject:
         
         return "".join(F_complete_list)
             
-            
+             
             
     def decrypt(self):
         """Function to decrypt the given DNA sequence.
@@ -86,6 +86,15 @@ class GoldmanObject:
             raise Exception("Please provide a valid DNA sequence")
             
         F_complete_list = [DNA_seq[i:i+117] for i in range(0, len(DNA_seq), 117)]
+        
+        for i in range(len(F_complete_list)):
+            F = F_complete_list[i]
+            if (F[0] == "A" or F[0] == "T") and (F[-1] == "C" or F[-1] == "G"):
+                F_complete_list[i] = F
+            elif (F[0] == "G" or F[0] == "C") and (F[-1] == "A" or F[-1] == "T"):
+                F_complete_list[i] = utils.reverse_completement_DNA(F)
+            else:
+                raise Exception("The given sequence is not suitable for encryption.")
         
         IX_DNA_list = []
         F_list_randomized = []
